@@ -1,4 +1,5 @@
 import Navbar from "@/lib/components/shared/Navbar";
+import { MenuIcon, Search } from "lucide-react";
 
 export default function MainLayout({
   children,
@@ -7,7 +8,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <main className="flex min-h-screen flex-col bg-white">{children}</main>
+      <main className="flex min-h-screen flex-col bg-white scrollbar-hide ">{children}</main>
       <Navbar />
     </>
   );
