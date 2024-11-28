@@ -1,7 +1,7 @@
-'use client';
+"use client";
 import CurrentSettings from "@/lib/components/ui/CurrentSettings";
+import { AreaChartHero } from "../../../lib/components/charts/graph";
 import { TopNav } from "../_components/TopNav";
-import { AreaChartHero } from "./graph";
 interface ProfileProbs {
   companyName: string;
   loanTyp: string;
