@@ -78,7 +78,10 @@ const Page = () => {
     <div className="flex flex-col pb-12">
       <div className="flex flex-col gap-4 p-6">
         <TopNav mode="light" isBackBtn={true} />
-        <h2 className="font-bold">Deals</h2>
+        <div className="flex justify-between">
+          <h2 className="font-bold">Deals</h2>
+          <a href="/p2p/create" className="bg-black text-white p-2 rounded-lg px-6">Create Deal +</a>
+        </div>
         <div className="flex gap-4">
           <div
             onClick={() => setActiveTab(1)}

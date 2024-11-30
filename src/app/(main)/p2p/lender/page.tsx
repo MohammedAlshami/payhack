@@ -191,7 +191,9 @@ const Page = () => {
   const [details, setdetails] = useState("");
   useEffect(() => {
     // Fetch Microvendors data
-    fetch(`https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-loan-details?name=${company}`)
+    fetch(
+      `https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-loan-details?name=${company}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setRequirementsDetails(data.requirementsDetails);
