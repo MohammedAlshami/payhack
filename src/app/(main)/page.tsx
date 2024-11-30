@@ -12,7 +12,7 @@ export default async function Home() {
     error,
   } = await supabase.auth.getUser();
   if (!user?.email) {
-    redirect("/get-started");
+    redirect("/home");
   }
 
   return (

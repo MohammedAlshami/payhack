@@ -8,7 +8,7 @@ interface BalanceCardProps {
 
 export const BalanceCard = ({ balance, addedCards }: BalanceCardProps) => {
   return (
-    <div className="h-64 bg-neutral-900 text-white font-bold rounded-xl p-8  flex justify-between items-center ">
+    <div className="h-64 bg-gradient-to-r from-accent to-pink-400   text-white font-bold rounded-xl p-8  flex justify-between items-center ">
       <div className="h-full flex flex-col justify-between">
         <h2>Balance</h2>
         <h2 className="text-3xl">RM {numberWithCommas(balance)}</h2>

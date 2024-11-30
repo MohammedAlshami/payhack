@@ -13,12 +13,20 @@ export const TopNav = ({ mode, isBackBtn }: TopNavProps) => {
     <div
       className={`flex justify-between p-6 ${mode == "dark" ? "text-white" : "text-purple-600"} `}
     >
-      <div
-        className={`p-2 rounded-xl cursor-pointer ${mode == "dark" ? "hover:bg-background  hover:text-accent" : "hover:bg-accent  hover:text-background"}`}
-      >
-        {isBackBtn && <ArrowLeft onClick={() => router.back()} className="hover:bg-background" />}
-      </div>
-      {!isBackBtn && <MenuIcon />}
+      {isBackBtn && (
+        <div
+          className={`p-2 rounded-xl cursor-pointer ${mode == "dark" ? "hover:bg-background  hover:text-accent" : "hover:bg-accent  hover:text-background"}`}
+        >
+          <ArrowLeft onClick={() => router.back()} className="hover:bg-background" />
+        </div>
+      )}
+      {!isBackBtn && (
+        <div
+          className={`p-2 rounded-xl cursor-pointer ${mode == "dark" ? "hover:bg-background  hover:text-accent" : "hover:bg-accent  hover:text-background"}`}
+        >
+          <MenuIcon />
+        </div>
+      )}
       <h2 className={`font-bold p-2 ${mode == "dark" ? "text-white" : "text-neutral-800"}`}>
         SME FM
       </h2>
