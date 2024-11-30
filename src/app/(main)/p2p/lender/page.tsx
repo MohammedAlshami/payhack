@@ -3,7 +3,7 @@ import { ArrowRight, Currency, Percent } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TopNav } from "../../_components/TopNav";
-
+import ProjectDetails from "./ProjectDetails";
 interface ProfileProbs {
   companyName: string;
   loanTyp: string;
@@ -69,7 +69,8 @@ const LoanDetailComponent = ({ icon, title, content }: LoanDetailComponentProbs)
     </div>
   );
 };
-const DebtInfo = ({ loanDetails, requirementsDetails }) => {
+const DebtInfo = ({ loanDetails, requirementsDetails, projectInfo }) => {
+  console.log(projectInfo.spendingDetails);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [submissionText, setSubmissionText] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
@@ -111,7 +112,17 @@ const DebtInfo = ({ loanDetails, requirementsDetails }) => {
   return (
     <div className="w-full h-full flex flex-col gap-6 px-4 sm:px-18 py-8 bg-background rounded-t-3xl pb-24 relative">
       <div className="flex flex-col gap-8">
+        {projectInfo && (
+          <ProjectDetails
+            projectTitle={projectInfo.projectTitle}
+            projectDescription={projectInfo.projectDescription}
+            loanAmount={projectInfo.loanAmount}
+            spendingDetails={projectInfo.spendingDetails}
+            fileLinks={projectInfo.fileLinks}
+          />
+        )}
         <h2 className="text-xl font-bold">Loan Details</h2>
+
         <div className="space-y-4">
           {loanDetails.map((loan, index) => (
             <LoanDetailComponent
@@ -124,7 +135,7 @@ const DebtInfo = ({ loanDetails, requirementsDetails }) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-4">
+      {/* <div className="flex flex-col gap-4">
         <h2 className="text-xl font-bold">Requirements</h2>
         <div className="space-y-4">
           {requirementsDetails.map((requirement, index) => (
@@ -136,7 +147,7 @@ const DebtInfo = ({ loanDetails, requirementsDetails }) => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
 
       <button
         onClick={() => setIsFormVisible(true)}
@@ -189,11 +200,18 @@ const Page = () => {
   const [loanTyp, setLoanTyp] = useState("");
   const [date, setDate] = useState("");
   const [details, setdetails] = useState("");
+
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [loanAmount, setLoanAmount] = useState("");
+  const [spendingDetails, setSpendingDetails] = useState([]);
+  const [fileLinks, setFileLinks] = useState([]);
+
+  const [projectInfo, setProjectInfo] = useState({});
+
   useEffect(() => {
     // Fetch Microvendors data
-    fetch(
-      `https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-loan-details?name=${company}`,
-    )
+    fetch(`http://127.0.0.1:5000/api/get-loan-details?name=${company}`)
       .then((res) => res.json())
       .then((data) => {
         setRequirementsDetails(data.requirementsDetails);
@@ -201,7 +219,21 @@ const Page = () => {
         setLoanDetails(data.loanDetails);
         setCompanyLogo(data.companyLogo);
         setCompanyName(data.companyName);
+
         setdetails(data.details);
+        setProjectTitle(data.projectTitle);
+        setProjectDescription(data.projectDescription);
+        setLoanAmount(data.loanAmount);
+        setSpendingDetails(data.spendingDetails);
+        setFileLinks(data.fileLinks);
+
+        setProjectInfo({
+          projectTitle: data.projectTitle,
+          projectDescription: data.projectDescription,
+          loanAmount: data.loanAmount,
+          spendingDetails: data.spendingDetails,
+          fileLinks: data.fileLinks,
+        });
       })
       .catch((err) => console.error("Failed to fetch Microvendors:", err));
   }, []);
@@ -215,7 +247,11 @@ const Page = () => {
         date={date}
         details={details}
       />
-      <DebtInfo loanDetails={loanDetails} requirementsDetails={requirementsDetails} />
+      <DebtInfo
+        loanDetails={loanDetails}
+        requirementsDetails={requirementsDetails}
+        projectInfo={projectInfo}
+      />
     </div>
   );
 };
