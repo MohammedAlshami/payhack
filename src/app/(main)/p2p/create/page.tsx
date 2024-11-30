@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation"; // Usage: App router
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -218,8 +219,97 @@ const FileUpload = () => {
     </div>
   );
 };
-
 const Page = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+    setError("");
+    setIsLoading(true);
+
+    const response = await fetch("http://127.0.0.1:5000/api/add-loan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        companyName: "Tech Innovators Inc.",
+        companyLogo:
+          "https://img.freepik.com/free-photo/portrait-smiling-young-man_23-2148724568.jpg",
+        loanTyp: "Microloan",
+        date: "30/11/2024",
+        details:
+          "We manage software solutions with agility and precision, ensuring seamless operations and innovative outcomes.",
+        projectTitle: "Project A",
+        projectDescription: "This is a description of Project A.",
+        loanAmount: "5000",
+        loanDuration: "3 - 5 months",
+        availableCredit: "RM 10,000",
+        discount: "4% discount",
+        spendingDetails: [
+          {
+            title: "Equipment",
+            amount: 2000,
+          },
+          {
+            title: "Marketing",
+            amount: 1500,
+          },
+        ],
+        fileLinks: [
+          {
+            title: "Business Plan",
+            link: "https://example.com/business-plan.pdf",
+          },
+          {
+            title: "Financial Report",
+            link: "https://example.com/financial-report.pdf",
+          },
+        ],
+        loanDetails: [
+          {
+            icon: "percentage",
+            title: "Interest Rate",
+            content: "% 10",
+          },
+          {
+            icon: "currency",
+            title: "Repayment Period",
+            content: "3 - 6 months",
+          },
+        ],
+        requirementsDetails: [
+          {
+            icon: "",
+            title: "Collateral",
+            content: "None",
+          },
+          {
+            icon: "",
+            title: "Minimum Income",
+            content: "$1,000/month",
+          },
+        ],
+        page: "/p2p/lender?company=Tech Innovators Inc.",
+      }),
+    });
+
+    const data = await response.json();
+
+    setIsLoading(false);
+
+    if (data?.error) {
+      setError(data.error);
+    } else {
+      setSuccess(true);
+      setTimeout(() => {
+        router.push("/p2p"); // Redirect after success
+      }, 2000); // Add delay to show success popup
+    }
+  };
+
   return (
     <div className="flex flex-col pb-12 w-full">
       <div className="flex flex-col gap-8 p-6 w-full">
@@ -233,12 +323,33 @@ const Page = () => {
         <FileUpload />
         <SpendingDetails />
 
-        <a href="/p2p" className="w-full bg-black p-3 rounded-md text-white text-center">
+        <div
+          onClick={handleSubmit}
+          className="w-full bg-black p-3 rounded-md text-white text-center cursor-pointer"
+        >
           Submit
-        </a>
+        </div>
       </div>
+
+      {/* Success Popup */}
+      {success && (
+        <div className="fixed inset-0 bg-black/40 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-md text-center">
+            <p className="text-lg font-bold">Request Submitted Successfully!</p>
+            <p>You will be redirected shortly.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Error Popup */}
+      {error && (
+        <div className="fixed inset-0 bg-red-600 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-md text-center">
+            <p className="text-lg font-bold">Error: Make sure to fill the entire form</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
 export default Page;

@@ -10,7 +10,7 @@ export default async function Navbar() {
     error,
   } = await supabase.auth.getUser();
   return (
-    <div className="fixed bottom-0 w-full  bg-white text-white flex justify-around  items-center py-6">
+    <div className="fixed bottom-0 w-full md:w-1/2 lg:w-3/12 bg-white text-white flex justify-around  items-center py-6">
       {/* Icon 1 */}
       <Link href="/home" className="flex flex-col items-center text-purple-600">
         <HomeIcon />

@@ -10,6 +10,7 @@ interface LoanComponentProps {
   availableCredit: string;
   discount: string;
   page: string;
+  type: string;
 }
 
 const LoanComponent: React.FC<LoanComponentProps> = ({
@@ -19,12 +20,13 @@ const LoanComponent: React.FC<LoanComponentProps> = ({
   availableCredit,
   discount,
   page,
+  type
 }) => {
   const router = useRouter();
 
   return (
     <div
-      className="flex flex-col gap-8 bg-gray-100 p-4 rounded-lg"
+      className="flex flex-col gap-8 bg-gray-100 p-4 rounded-lg cursor-pointer"
       onClick={() => router.push(page)}
     >
       <div className="flex items-center gap-4">
@@ -34,14 +36,14 @@ const LoanComponent: React.FC<LoanComponentProps> = ({
       </div>
       <div className="flex justify-between items-center">
         <div className="flex flex-col gap-2">
-          <h3 className="text-xs">Available Credit</h3>
+          <h3 className="text-xs">{type == "bank"? "Available Credit": "Asking For" }</h3>
           <h2 className="font-bold">{availableCredit}</h2>
         </div>
         <div className="flex flex-col gap-2">
-          <h3 className="text-xs">Looking For</h3>
+          <h3 className="text-xs">{type == "bank"? "Interest": "Benefits" }</h3>
           <h2 className="font-bold">{discount}</h2>
         </div>
-        <div className="bg-black text-background py-2 px-6 rounded-xl text-sm cursor-pointer">
+        <div className="bg-black text-background py-2 px-6 rounded-xl text-sm x">
           Apply
         </div>
       </div>
@@ -56,7 +58,7 @@ const Page = () => {
 
   useEffect(() => {
     // Fetch Microvendors data
-    fetch("https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-all-p2p")
+    fetch("http://127.0.0.1:5000/api/get-all-p2p")
       .then((res) => res.json())
       .then((data) => {
         setLoanData1(data);
@@ -65,7 +67,7 @@ const Page = () => {
       .catch((err) => console.error("Failed to fetch Microvendors:", err));
 
     // Fetch Microloans data
-    fetch("https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-all-banks")
+    fetch("http://127.0.0.1:5000/api/get-all-banks")
       .then((res) => res.json())
       .then((data) => {
         setLoanData2(data);
@@ -85,13 +87,13 @@ const Page = () => {
         <div className="flex gap-4">
           <div
             onClick={() => setActiveTab(1)}
-            className={`px-4 py-2 rounded ${activeTab === 1 ? "text-accent border-b-4 border-accent" : "text-black/20"}`}
+            className={`px-4 py-2 cursor-pointer rounded ${activeTab === 1 ? "text-accent border-b-4 border-accent" : "text-black/20"}`}
           >
             Microvendors
           </div>
           <div
             onClick={() => setActiveTab(2)}
-            className={`px-4 py-2 rounded ${activeTab === 2 ? " text-accent border-b-4 border-accent" : " text-black/20 border-b-4 border-black/20"}`}
+            className={`px-4 py-2 cursor-pointer rounded ${activeTab === 2 ? " text-accent border-b-4 border-accent" : " text-black/20 border-b-4 border-black/20"}`}
           >
             Microloans
           </div>
@@ -104,11 +106,12 @@ const Page = () => {
               <LoanComponent
                 key={index}
                 companyName={loan.companyName}
-                companyImage={loan.companyImage}
+                companyImage={loan.companyLogo}
                 loanDuration={loan.loanDuration}
                 availableCredit={loan.availableCredit}
                 discount={loan.discount}
                 page={loan.page}
+                type="vendor"
               />
             ))}
           </div>
@@ -124,6 +127,7 @@ const Page = () => {
                 availableCredit={loan.availableCredit}
                 discount={loan.discount}
                 page={loan.page}
+                type="bank"
               />
             ))}
           </div>

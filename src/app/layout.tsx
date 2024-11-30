@@ -21,8 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scrollbar-hide ">
-      <body className={poppins.className}>
-        <main>
+      <body className={`${poppins.className} w-full flex  justify-center bg-black `}>
+        <main className="w-full md:w-1/2 lg:w-3/12">
           {children} <Toaster richColors />
         </main>
       </body>

@@ -15,22 +15,9 @@ interface ProfileProbs {
 const Profile = ({ companyLogo, companyName, loanTyp, date, details }: ProfileProbs) => {
   return (
     <div className="space-y-8">
-      <div className="w-10/12 flex justify-between items-center text-white h-fit px-6 sm:justify-center sm:gap-24 sm:px-0">
+      <div className="w-10/12 flex justify-between items-center text-white h-fit px-16 sm:px-6 gap-6 sm:justify-center p">
         <img src={companyLogo} alt="" className="rounded-full h-28 w-28 border-4 border-white/80" />
-        <div className="h-full flex flex-col  gap-4">
-          <h2 className="font-bold text-xl">{companyName}</h2>
-          <div className="grid grid-cols-2 w-fit gap-4">
-            <h2 className="text-sm h-fit p-1 px-2 bg-background text-primary rounded-xl">
-              3 - 6 months
-            </h2>
-            <h2 className="text-sm h-fit p-1 px-2 bg-background text-primary rounded-xl">
-              3 - 6 months
-            </h2>
-            <h2 className="text-sm h-fit p-1 px-2 bg-background text-primary rounded-xl">
-              3 - 6 months
-            </h2>
-          </div>
-        </div>
+        <h2 className="font-bold text-xl">{companyName}</h2>
       </div>
       <p className="w-full px-6 text-background">{details}</p>
     </div>
@@ -80,7 +67,7 @@ const DebtInfo = ({ loanDetails, requirementsDetails, projectInfo }) => {
 
   const handleSubmit = () => {
     if (submissionText.trim()) {
-      fetch("https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/add-request", {
+      fetch("http://127.0.0.1:5000/api/add-request", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,9 +97,9 @@ const DebtInfo = ({ loanDetails, requirementsDetails, projectInfo }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-6 px-4 sm:px-18 py-8 bg-background rounded-t-3xl pb-24 relative">
+    <div className="w-full h-fit flex flex-col gap-6 px-4 py-8 pb-24 sm:px-18  bg-background rounded-t-3xl  relative">
       <div className="flex flex-col gap-8">
-        {projectInfo && (
+        {projectInfo && projectInfo.spendingDetails && (
           <ProjectDetails
             projectTitle={projectInfo.projectTitle}
             projectDescription={projectInfo.projectDescription}
@@ -158,7 +145,7 @@ const DebtInfo = ({ loanDetails, requirementsDetails, projectInfo }) => {
 
       {/* Slide-up Form */}
       <div
-        className={`fixed bottom-0 left-0 w-full h-[28rem]  bg-white p-6 shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed bottom-0 left-0 w-full h-[28rem]  bg-white p-6 shadow-lg transform transition-transform duration-300 ease-in-out border-4 border-accent rounded-t-3xl ${
           isFormVisible ? "translate-y-0" : "translate-y-full"
         }`}
       >
