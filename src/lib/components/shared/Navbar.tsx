@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { BookMinus, HomeIcon, Menu } from "lucide-react";
+import { Banknote, BookMinus, CreditCard, HomeIcon } from "lucide-react";
 import Link from "next/link";
 import UserProfile from "./UserProfile";
 
@@ -17,14 +17,19 @@ export default async function Navbar() {
       </Link>
       {/* Icon 2 */}
       <div className="flex flex-col items-center">
-        <Link href="/" className="flex flex-col items-center text-purple-600">
-          <Menu />
+        <Link href="/debt/loans" className="flex flex-col items-center text-purple-600">
+          <Banknote />
         </Link>
       </div>
       {/* Icon 3 */}
       <div className="flex flex-col items-center">
-        <Link href="/" className="flex flex-col items-center text-purple-600">
+        <Link href="/p2p" className="flex flex-col items-center text-purple-600">
           <BookMinus />
+        </Link>
+      </div>
+      <div className="f lex flex-col items-center">
+        <Link href="/card" className="flex flex-col items-center text-purple-600">
+          <CreditCard />
         </Link>
       </div>
 

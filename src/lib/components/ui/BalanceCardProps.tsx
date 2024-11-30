@@ -24,7 +24,7 @@ export const BalanceCard = ({ balance, addedCards }: BalanceCardProps) => {
         </div>
       </div>
       <a
-        href="/cards"
+        href="/card"
         className="h-full border-2  border-white border-dotted rounded-3xl flex items-center justify-center p-1 hover:bg-purple-600"
       >
         <PlusIcon className="size-8" />

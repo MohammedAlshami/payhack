@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation"; // Usage: App router
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TopNav } from "../_components/TopNav";
 
 interface LoanComponentProps {
@@ -41,7 +41,9 @@ const LoanComponent: React.FC<LoanComponentProps> = ({
           <h3 className="text-xs">Looking For</h3>
           <h2 className="font-bold">{discount}</h2>
         </div>
-        <div className="bg-black text-background py-2 px-6 rounded-xl text-sm">Apply</div>
+        <div className="bg-black text-background py-2 px-6 rounded-xl text-sm cursor-pointer">
+          Apply
+        </div>
       </div>
     </div>
   );
@@ -49,82 +51,28 @@ const LoanComponent: React.FC<LoanComponentProps> = ({
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState(1); // 1 for Tab 1, 2 for Tab 2
+  const [loanData1, setLoanData1] = useState([]);
+  const [loanData2, setLoanData2] = useState([]);
 
-  const loanData1 = [
-    {
-      companyName: "Kampung Food LTD",
-      companyImage:
-        "https://img.freepik.com/free-photo/front-view-man-with-beard-posing_23-2149438512.jpg",
-      loanDuration: "3 - 5 months",
-      availableCredit: "RM 10,000",
-      discount: "4% discount",
-      page: "/p2p/lender",
-    },
-    {
-      companyName: "Tech Innovators Inc.",
-      companyImage:
-        "https://img.freepik.com/free-photo/portrait-smiling-young-man_23-2148724568.jpg",
-      loanDuration: "6 - 12 months",
-      availableCredit: "RM 50,000",
-      discount: "5% discount",
-      page: "/p2p/lender",
-    },
-    {
-      companyName: "Green Energy Solutions",
-      companyImage: "https://img.freepik.com/free-photo/happy-man_23-2148723456.jpg",
-      loanDuration: "1 - 2 years",
-      availableCredit: "RM 100,000",
-      discount: "3% discount",
-      page: "/p2p/lender",
-    },
-    {
-      companyName: "Green Energy Solutions",
-      companyImage: "https://img.freepik.com/free-photo/happy-man_23-2148723456.jpg",
-      loanDuration: "1 - 2 years",
-      availableCredit: "RM 100,000",
-      discount: "3% discount",
-      page: "/p2p/lender",
-    },
-  ];
+  useEffect(() => {
+    // Fetch Microvendors data
+    fetch("http://127.0.0.1:5000/api/get-all-p2p")
+      .then((res) => res.json())
+      .then((data) => {
+        setLoanData1(data);
+        console.log(loanData1);
+      })
+      .catch((err) => console.error("Failed to fetch Microvendors:", err));
 
-  const loanData2 = [
-    {
-      companyName: "Bank of America",
-      companyImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDHjZQZYAXSe8WwbRyZj2IIXE3xg0PucntmQ&s",
-      loanDuration: "3 - 5 months",
-      availableCredit: "USD 10,000",
-      discount: "4% discount",
-      page: "/p2p/lender",
-    },
-    {
-      companyName: "Chase Bank",
-      companyImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDHjZQZYAXSe8WwbRyZj2IIXE3xg0PucntmQ&s",
-      loanDuration: "6 - 12 months",
-      availableCredit: "USD 50,000",
-      discount: "5% discount",
-      page: "/p2p/lender",
-    },
-    {
-      companyName: "Wells Fargo",
-      companyImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDHjZQZYAXSe8WwbRyZj2IIXE3xg0PucntmQ&s",
-      loanDuration: "1 - 2 years",
-      availableCredit: "USD 100,000",
-      discount: "3% discount",
-      page: "/p2p/lender",
-    },
-    {
-      companyName: "Citibank",
-      companyImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDHjZQZYAXSe8WwbRyZj2IIXE3xg0PucntmQ&s",
-      loanDuration: "1 - 2 years",
-      availableCredit: "USD 100,000",
-      discount: "3% discount",
-      page: "/p2p/lender",
-    },
-  ];
+    // Fetch Microloans data
+    fetch("http://127.0.0.1:5000/api/get-all-banks")
+      .then((res) => res.json())
+      .then((data) => {
+        setLoanData2(data);
+        console.log(loanData2);
+      })
+      .catch((err) => console.error("Failed to fetch Microloans:", err));
+  }, []);
 
   return (
     <div className="flex flex-col pb-12">

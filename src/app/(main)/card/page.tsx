@@ -4,14 +4,22 @@ import { ArrowRight } from "lucide-react";
 import { TopNav } from "../_components/TopNav";
 
 import CardsCarousel from "@/lib/components/ui/CardsCarousel";
-import { useState } from "react";
 import Drawer from "@/lib/components/ui/Drawer";
+import { useState } from "react";
+
 const CardComponents = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <div className="w-full h-full flex flex-col px-4 sm:px-12 py-8 bg-background rounded-t-3xl">
-      <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+    <div className="w-full h-full flex flex-col px-4 sm:px-12 py-8 bg-background rounded-t-3xl relative">
+      {/* Drawer Wrapper */}
+      <div
+        className={`fixed bottom-0 left-0 w-full h-full  shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isDrawerOpen ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+      </div>
 
       <div className="flex flex-col gap-8">
         <div
@@ -44,7 +52,7 @@ const CardComponents = () => {
             details="2 April 2023 - utilities"
             type="OUT"
             amount={17}
-          />{" "}
+          />
           <TransactionCard
             img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
             title="TNB"
@@ -57,6 +65,7 @@ const CardComponents = () => {
     </div>
   );
 };
+
 const page = () => {
   const addedCards = {
     card1: {
@@ -76,8 +85,7 @@ const page = () => {
     <div className="flex flex-col gap-8 w-full bg-accent h-screen">
       {/* Page Content */}
       <div className="flex flex-col gap-8 p-6">
-        <TopNav mode="dark" isBackBtn={false} />
-
+        <TopNav mode="dark" isBackBtn={true} />
         <CardsCarousel />
       </div>
       <CardComponents />

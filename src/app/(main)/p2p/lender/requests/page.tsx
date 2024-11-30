@@ -1,6 +1,6 @@
 "use client";
 import { Filter, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TopNav } from "../../../_components/TopNav";
 
 interface RequestComponentProps {
@@ -34,7 +34,7 @@ const RequestComponent: React.FC<RequestComponentProps> = ({
           <h3 className="text-xs">Score</h3>
           <h2 className="font-bold">{discount}</h2>
         </div>
-        <div className="bg-black text-background py-2 px-6 rounded-xl text-sm">Accept</div>
+        <div className="bg-black text-background py-2 px-6 rounded-xl text-sm cursor-pointer">Accept</div>
       </div>
     </div>
   );
@@ -42,41 +42,16 @@ const RequestComponent: React.FC<RequestComponentProps> = ({
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState(1); // 1 for Tab 1, 2 for Tab 2
-
-  const loanData1 = [
-    {
-      companyName: "Kampung Food LTD",
-      companyImage:
-        "https://img.freepik.com/free-photo/front-view-man-with-beard-posing_23-2149438512.jpg",
-      loanDuration: "sales > 500k",
-      availableCredit: "RM 10,000",
-      discount: "10/12",
-    },
-    {
-      companyName: "Kampung Food LTD",
-      companyImage:
-        "https://img.freepik.com/free-photo/front-view-man-with-beard-posing_23-2149438512.jpg",
-      loanDuration: "sales > 500k",
-      availableCredit: "RM 10,000",
-      discount: "10/12",
-    },
-    {
-      companyName: "Kampung Food LTD",
-      companyImage:
-        "https://img.freepik.com/free-photo/front-view-man-with-beard-posing_23-2149438512.jpg",
-      loanDuration: "sales > 500k",
-      availableCredit: "RM 10,000",
-      discount: "10/12",
-    },
-    {
-      companyName: "Kampung Food LTD",
-      companyImage:
-        "https://img.freepik.com/free-photo/front-view-man-with-beard-posing_23-2149438512.jpg",
-      loanDuration: "sales > 500k",
-      availableCredit: "RM 10,000",
-      discount: "10/12",
-    },
-  ];
+  const [loanData1, setLoanData1] = useState([]);
+  useEffect(() => {
+    // Fetch Microvendors data
+    fetch(`http://127.0.0.1:5000/api/get-requests`)
+      .then((res) => res.json())
+      .then((data) => {
+        setLoanData1(data);
+      })
+      .catch((err) => console.error("Failed to fetch Microvendors:", err));
+  }, []);
 
   return (
     <div className="flex flex-col pb-12 bg-accent">
@@ -98,16 +73,19 @@ const Page = () => {
           </div>
 
           <div className="flex flex-col gap-4 ">
-            {loanData1.map((loan, index) => (
-              <RequestComponent
-                key={index}
-                companyName={loan.companyName}
-                companyImage={loan.companyImage}
-                loanDuration={loan.loanDuration}
-                availableCredit={loan.availableCredit}
-                discount={loan.discount}
-              />
-            ))}
+            {loanData1
+              .slice()
+              .reverse()
+              .map((loan, index) => (
+                <RequestComponent
+                  key={index}
+                  companyName={loan.companyName}
+                  companyImage={loan.companyImage}
+                  loanDuration={loan.loanDuration}
+                  availableCredit={loan.availableCredit}
+                  discount={loan.discount}
+                />
+              ))}
           </div>
         </div>
       </div>
