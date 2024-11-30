@@ -45,7 +45,7 @@ const Page = () => {
   const [loanData1, setLoanData1] = useState([]);
   useEffect(() => {
     // Fetch Microvendors data
-    fetch(`https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-requests`)
+    fetch(`http://127.0.0.1:5000/api/get-requests`)
       .then((res) => res.json())
       .then((data) => {
         setLoanData1(data);
@@ -59,7 +59,7 @@ const Page = () => {
         <div className=" p-6">
           <TopNav mode="dark" isBackBtn={true} />
         </div>
-        <div className="bg-background p-6 pt-12 rounded-t-3xl space-y-6">
+        <div className="bg-background p-6 pt-12 rounded-t-3xl space-y-6 h-screen">
           <div className="space-y-6">
             <h2 className="font-bold text-xl">Requests</h2>
             <div className="flex gap-4">

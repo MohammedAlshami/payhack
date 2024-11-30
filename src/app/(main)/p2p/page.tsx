@@ -122,7 +122,7 @@ const Page = () => {
               <LoanComponent
                 key={index}
                 companyName={loan.companyName}
-                companyImage={loan.companyImage}
+                companyImage={loan.companyLogo}
                 loanDuration={loan.loanDuration}
                 availableCredit={loan.availableCredit}
                 discount={loan.discount}
