@@ -56,7 +56,7 @@ const Page = () => {
 
   useEffect(() => {
     // Fetch Microvendors data
-    fetch("http://127.0.0.1:5000/api/get-all-p2p")
+    fetch("https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-all-p2p")
       .then((res) => res.json())
       .then((data) => {
         setLoanData1(data);
@@ -65,7 +65,7 @@ const Page = () => {
       .catch((err) => console.error("Failed to fetch Microvendors:", err));
 
     // Fetch Microloans data
-    fetch("http://127.0.0.1:5000/api/get-all-banks")
+    fetch("https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-all-banks")
       .then((res) => res.json())
       .then((data) => {
         setLoanData2(data);

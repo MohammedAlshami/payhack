@@ -45,7 +45,7 @@ const Page = () => {
   const [loanData1, setLoanData1] = useState([]);
   useEffect(() => {
     // Fetch Microvendors data
-    fetch(`http://127.0.0.1:5000/api/get-requests`)
+    fetch(`https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/get-requests`)
       .then((res) => res.json())
       .then((data) => {
         setLoanData1(data);
