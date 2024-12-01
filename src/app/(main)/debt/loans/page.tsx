@@ -3,6 +3,7 @@ import { LoanCard } from "@/lib/components/ui/LoanCard";
 import { ArrowRight } from "lucide-react";
 import { AreaChartHero } from "../../../../lib/components/charts/graph";
 import { TopNav } from "../../_components/TopNav";
+import DebtInfo from "./DebtInfo";
 
 interface ProfileProbs {
   companyName: string;
@@ -60,38 +61,38 @@ const Greetings = ({ userName }: GreetingsProps) => {
   );
 };
 
-const DebtInfo = () => {
-  return (
-    <div className="w-full h-full flex flex-col px-4 sm:px-12 py-8 bg-accent rounded-t-3xl">
-      <div className="flex flex-col gap-8 ">
-        <a href="/debt/list" className="flex justify-between items-center">
-          <h3 className="text-white font-medium text-xl">Loans</h3>
-          <ArrowRight className="text-white" />
-        </a>
-        <div className="flex flex-col gap-3">
-          <LoanCard
-            img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
-            title="TNB"
-            details="02/12/2024"
-            amount={17}
-          />
-          <LoanCard
-            img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
-            title="TNB"
-            details="02/12/2024"
-            amount={17}
-          />
-          <LoanCard
-            img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
-            title="TNB"
-            details="02/12/2024"
-            amount={17}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
+// const DebtInfo = () => {
+//   return (
+//     <div className="w-full h-full flex flex-col px-4 sm:px-12 py-8 bg-accent rounded-t-3xl">
+//       <div className="flex flex-col gap-8 ">
+//         <a href="/debt/list" className="flex justify-between items-center">
+//           <h3 className="text-white font-medium text-xl">Loans</h3>
+//           <ArrowRight className="text-white" />
+//         </a>
+//         <div className="flex flex-col gap-3">
+//           <LoanCard
+//             img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
+//             title="TNB"
+//             details="02/12/2024"
+//             amount={17}
+//           />
+//           <LoanCard
+//             img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
+//             title="TNB"
+//             details="02/12/2024"
+//             amount={17}
+//           />
+//           <LoanCard
+//             img="https://www.mywakaf.com.my/wp-content/uploads/2019/04/RHB-Islamic-Logo-400x162.jpg"
+//             title="TNB"
+//             details="02/12/2024"
+//             amount={17}
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 const page = () => {
   return (
