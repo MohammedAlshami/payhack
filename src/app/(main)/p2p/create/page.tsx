@@ -229,7 +229,7 @@ const Page = () => {
     setError("");
     setIsLoading(true);
 
-    const response = await fetch("http://127.0.0.1:5000/api/add-loan", {
+    const response = await fetch("https://vw7cf4m67k.execute-api.ap-southeast-1.amazonaws.com/main/api/add-loan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
